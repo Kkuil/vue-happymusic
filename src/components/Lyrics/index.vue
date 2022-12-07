@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { reactive } from 'vue';
-import { useLangStore } from '@/stores/lang'
+import { useLangStore } from '@/stores/settings'
 
 import Switch from '@/EncapComponents/Switch/index.vue'
 

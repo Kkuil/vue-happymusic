@@ -1,15 +1,17 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { reactive } from 'vue';
-import { useLangStore } from '@/stores/lang'
+import { useLangStore, useAppleListStore } from '@/stores/settings'
 
 import Switch from '@/EncapComponents/Switch/index.vue'
 
 const langStore = useLangStore()
+const appleListStore = useAppleListStore()
 const { lang } = storeToRefs(langStore)
+const { isShowAppleList } = storeToRefs(appleListStore)
 
-function turn(a) {
-    console.log(a)
+function isShowApple(isShowAppleList) {
+    appleListStore.updateIsShowAppleList(isShowAppleList)
 }
 
 </script>
@@ -20,19 +22,19 @@ function turn(a) {
         <div class="showPlaylistsByAppleMusic">
             <div class="text">{{ lang.settings.showPlaylistsByAppleMusic }}</div>
             <div class="switch">
-                <Switch @switch="turn"/>
+                <Switch @switch="isShowApple" :initial="isShowAppleList"/>
             </div>
         </div>
         <div class="subTitleDefault">
             <div class="text">{{ lang.settings.subTitleDefault }}</div>
             <div class="switch">
-                <Switch @switch="turn"/>
+                <Switch/>
             </div>
         </div>
         <div class="enableReversedMode">
             <div class="text">{{ lang.settings.enableReversedMode }}</div>
             <div class="switch">
-                <Switch @switch="turn"/>
+                <Switch/>
             </div>
         </div>
         <div class="showLyricsTranslation">
@@ -43,7 +45,7 @@ function turn(a) {
                 <img src="../../../public/img/logos/nyancat-stop.png" alt="">
             </div>
             <div class="switch">
-                <Switch @switch="turn"/>
+                <Switch/>
             </div>
         </div>
     </div>

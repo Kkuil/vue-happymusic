@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3805249 */
-  src: url('//at.alicdn.com/t/c/font_3805249_9z1m2mrbbkv.woff2?t=1670160741604') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3805249_9z1m2mrbbkv.woff?t=1670160741604') format('woff'),
-       url('//at.alicdn.com/t/c/font_3805249_9z1m2mrbbkv.ttf?t=1670160741604') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3805249_qs147x9q51a.woff2?t=1670333400843') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3805249_qs147x9q51a.woff?t=1670333400843') format('woff'),
+       url('//at.alicdn.com/t/c/font_3805249_qs147x9q51a.ttf?t=1670333400843') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pause:before {
+  content: "\e66c";
+}
+
+.icon-play_fill:before {
+  content: "\e717";
+}
+
+.icon-play-next:before {
+  content: "\e850";
+}
+
+.icon-thumbs-down:before {
+  content: "\e64b";
+}
+
+.icon-playfill:before {
+  content: "\e74f";
+}
+
+.icon-logout:before {
+  content: "\e742";
+}
+
+.icon-user-fill:before {
+  content: "\e7d5";
 }
 
 .icon-phone:before {

@@ -1,10 +1,11 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { reactive } from 'vue';
-import { useLangStore } from '@/stores/lang'
+import { useLangStore, useAppearStore } from '@/stores/settings'
 import moment from 'moment'
 
 const langStore = useLangStore()
+const appearStore = useAppearStore()
 const { lang } = storeToRefs(langStore)
 const setting = reactive({
     language: null,
@@ -21,16 +22,12 @@ function switchLang(e) {
 function changeTheme(e) {
     const themeColor = e.target.value
     let flag = themeColor == 'dark' ? 0 : themeColor == 'light' ? 1 : 2
-    console.log(flag)
     if(flag == 2) {
         const now = moment().format('H')
         flag = +now >= 18 ? 0 : 1
     }
-    document.body.style.setProperty('--bg_theme_color', !flag ? '#222' : '#fff')
-    document.body.style.setProperty('--common_text_color', !flag ? '#fff' : '#000')
-    document.body.style.setProperty('--secondary_bg_color', !flag ? '#333' : '#f5f5f7')
-    document.body.style.setProperty('--secondary_hover_bg_color', !flag ? '#333' : '#87c9f8b6')
-    document.body.style.setProperty('--symbol_color', !flag ? '#303030' : '#cfcfcf')
+    const appearance = flag ? 'light' : 'dark'
+    appearStore.updateAppearance(appearance)
 }
 </script>
 
@@ -71,7 +68,6 @@ function changeTheme(e) {
 .custom_preference {
     width: 50%;
     height: 200px;
-    margin-top: 200px;
 
     >div {
         width: 100%;

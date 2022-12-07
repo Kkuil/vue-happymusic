@@ -1,8 +1,9 @@
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, defineProps } from 'vue'
 
+const props = defineProps(['initial'])
 const emits = defineEmits(['switch'])
-let isOn = ref(false)
+let isOn = ref(props.initial)
 
 function turn() {
     isOn.value = !isOn.value

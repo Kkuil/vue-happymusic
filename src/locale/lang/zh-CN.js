@@ -16,6 +16,7 @@ export default {
     newAlbum: '新专速递',
     seeMore: '查看全部',
     charts: '排行榜',
+    apple: '来自 Apple Music 的歌单',
   },
   library: {
     sLibrary: '的音乐库',
@@ -82,6 +83,8 @@ export default {
     email: '邮箱',
     password: '密码',
     login: '登录',
+    logout: '退出登录',
+    profile: '用户中心',
     qr_tips: '请打网易云音乐APP扫码登录',
     loginWithEmail: '邮箱登录',
     loginWithPhone: '手机号登录',

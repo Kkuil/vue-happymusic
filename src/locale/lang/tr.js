@@ -19,6 +19,7 @@ export default {
     newAlbum: 'Son Çıkan Albümler',
     seeMore: 'DAHA FAZLASI',
     charts: 'Listeler',
+    apple: 'Apple Music ten çalma listesi'
   },
   library: {
     sLibrary: "'in Kütüphanesi",
@@ -81,6 +82,8 @@ export default {
     email: 'Email adresi',
     password: 'Şifre',
     login: 'Giriş Yap',
+    logout: 'Oturum açma girişi',
+    profile: 'Kullanıcı Merkezi',
     qr_tips: 'NetEase Cloud Music APP ile giriş yapmak için lütfen kodu tarayın',
     loginWithEmail: 'Email ile giriş yap',
     loginWithPhone: 'Phone ile giriş yap',

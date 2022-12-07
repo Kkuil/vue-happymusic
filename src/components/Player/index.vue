@@ -1,11 +1,27 @@
 <script setup>
+import { watch, ref } from 'vue';
+import { useRoute } from 'vue-router'
 
+const $route = useRoute()
+let isShowPlayer = ref(true)
+
+watch($route, route => {
+    if(route.name == 'login' || route.name == 'account') {
+        isShowPlayer.value = false
+    } else {
+        isShowPlayer.value = true
+    }
+    console.log(route.name)
+}, {
+})
 </script>
 
 <template>
-    <div id="player">
-        123
-    </div>
+    <transition name="player" duration="20000">
+        <div id="player" v-show="isShowPlayer">
+            123
+        </div>
+    </transition>
 </template>
 
 <style lang="less" scoped>
@@ -31,5 +47,8 @@
         font-size: var(--nor_fz);
         color: var(--common_text_color);
     }
+}
+.player-leave-active {
+    transform: translateY(100%);
 }
 </style>

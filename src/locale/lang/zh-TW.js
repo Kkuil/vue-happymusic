@@ -16,6 +16,7 @@ export default {
     newAlbum: '新曲上架',
     seeMore: '查看全部',
     charts: '排行榜',
+    apple: '來自 Apple Music 的歌單'
   },
   library: {
     sLibrary: '的音樂庫',
@@ -78,6 +79,8 @@ export default {
     email: 'Email',
     password: '密碼',
     login: '登入',
+    logout: '退出登錄',
+    profile: '用戶中心',
     qr_tips: '請打網易雲音樂APP掃碼登錄',
     loginWithEmail: '信箱登入',
     loginWithPhone: '手機號碼登入',

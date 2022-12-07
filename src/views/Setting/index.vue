@@ -16,7 +16,7 @@ import Others from '@/components/Others/index.vue'
 
 <style lang="less" scoped>
 #setting {
-    height: auto;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

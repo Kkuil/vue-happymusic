@@ -1,55 +1,68 @@
 <script setup>
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import md5 from 'js-md5'
-
-import LoginWithPhone from '@/api/login_with_phone'
+import emitter from '@/utils/eventBus.js'
 import UserDetail from '@/api/user_detail'
 
+import { LoginWithPhone } from '@/api/login'
+
+const $router = useRouter()
 let phone = ref('')
 let password = ref('')
 let isPPError = ref(false)
 let isPError = ref(false)
 
 async function login() {
-    if(!phone.value) {
+    if (!phone.value) {
         isPPError.value = true
-        return 
+        return
     } else {
-        const reg = /^15579868330$/
+        const reg = /^1[3-9]\d{9}$/
         const isLegal = reg.test(phone.value)
-        if(!isLegal) {
+        if (!isLegal) {
             isPPError.value = true
-            return 
+            return
         }
     }
-    if(!password.value) {
+    if (!password.value) {
         isPError.value = true
-        return 
+        return
     } else {
-        if(password.value.length < 6) {
+        if (password.value.length < 6) {
             isPError.value = true
             return
         }
     }
-    const data = await LoginWithPhone({
+    const { code, account: { id } } = await LoginWithPhone({
         params: {
             phone: phone.value,
             md5_password: md5(password.value)
         }
     })
-    const res = await UserDetail({
-        params: {
-            uid: data.account.id
-        }
-    })
-    console.log(res)
-    if(data.code == 503) {
+    // 本地存储uid
+    localStorage.setItem('uid', id)
+    if (code == 503) {
         isPPError.value = true
         isPError.value = true
-        return 
+        return
     }
-    phone.value = ''
-    password.value = ''
+    // 获取用户数据
+    const user_details = await GetUserDetails(id)
+    // 发送用户数据
+    emitter.emit('user_details', user_details)
+    // 跳往home页面
+    $router.push({
+        name: 'home'
+    })
+}
+
+async function GetUserDetails(uid) {
+    return await UserDetail({
+        params: {
+            uid
+        }
+    })
 }
 
 </script>
@@ -64,7 +77,10 @@ async function login() {
             <i class="iconfont icon-password"></i>
             <input type="password" placeholder="密码" v-model="password">
         </div>
-        <div class="login" @click="login">登录</div>
+        <div class="login
+        " @click="login">
+            登录
+        </div>
     </div>
 </template>
 

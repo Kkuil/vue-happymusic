@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useLangStore } from '@/stores/lang'
+import { useLangStore } from '@/stores/settings'
 import { ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
@@ -12,6 +12,8 @@ const { lang } = storeToRefs(langStore)
 let cur_route = ref('home')
 const isCollapse = ref(false)
 let isShowMenu = ref(false)
+let isLogin = ref(false)
+const avatarUrl = ref('')
 
 // 切换路由
 function switchRoute(name) {
@@ -20,12 +22,20 @@ function switchRoute(name) {
     })
 }
 
+function showMenu(e) {
+    isShowMenu.value = true
+}
+
 onMounted(() => {
     emitter.on('isCollapse', bool => {
         isCollapse.value = bool
     })
     emitter.on('hideMenu', () => {
         isShowMenu.value = false
+    })
+    emitter.on('user_details', user_details => {
+        isLogin.value = true
+        avatarUrl.value = user_details.profile.avatarUrl
     })
 })
 watch($route, route => {
@@ -58,18 +68,26 @@ watch($route, route => {
                     <input class="searchInput" type="text" :placeholder="lang.nav.search">
                 </div>
                 <div class="avatar">
-                    <img @click.stop="(isShowMenu = true)"
-                        src="http://s4.music.126.net/style/web2/img/default/default_avatar.jpg?param=60y60" />
+                    <img @click.stop="showMenu"
+                        :src="`${avatarUrl ? avatarUrl : 'http://s4.music.126.net/style/web2/img/default/default_avatar.jpg?param=60y60'}`" />
                     <transition name="menu" enter-active-class="animate__animated animate__fadeIn"
                         leave-active-class="animate__animated animate__fadeOut" duration="100">
                         <div v-show="isShowMenu" class="menu">
+                            <div v-show="isLogin" class="profile" @click="$router.push({ name: 'profile' })">
+                                <i class="iconfont icon-user-fill"></i>
+                                <span>{{ lang.login.profile }}</span>
+                            </div>
                             <div class="setting" @click="$router.push({ name: 'setting' })">
                                 <i class="iconfont icon-setting-fill"></i>
                                 <span>{{ lang.library.userProfileMenu.settings }}</span>
                             </div>
-                            <div class="log" @click="$router.push({ name: 'login' })">
+                            <div v-if="!isLogin" class="login" @click="$router.push({ name: 'login' })">
                                 <i class="iconfont icon-log-in"></i>
                                 <span>{{ lang.login.login }}</span>
+                            </div>
+                            <div v-else class="logout" @click="logout">
+                                <i class="iconfont icon-logout"></i>
+                                <span>{{ lang.login.logout }}</span>
                             </div>
                             <div class="github">
                                 <i class="iconfont icon-github"></i>
@@ -93,6 +111,7 @@ watch($route, route => {
     width: 100%;
     height: 64px;
     padding: 0 10vw;
+    background-color: transparent;
     backdrop-filter: var(--nav_player_bd-f);
     display: flex;
     justify-content: space-between;
@@ -208,10 +227,10 @@ watch($route, route => {
 
                 .menu {
                     position: absolute;
-                    bottom: -155px;
+                    top: 100%;
                     right: -90px;
                     width: 130px;
-                    height: 150px;
+                    height: auto;
                     border-radius: 15px;
                     border: 1px solid #eee;
                     background-color: var(--bg_theme_color);

@@ -1,17 +1,21 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useLangStore } from '@/stores/lang/index.js'
+import { ref, watch } from 'vue'
+import { useLangStore } from '@/stores/settings/index.js'
+import { useRoute } from 'vue-router'
 
-const $router = useRouter()
+const $route = useRoute()
 const langStore = useLangStore()
 const { lang } = storeToRefs(langStore)
+let show = ref($route.name)
 
+watch($route, route => {
+    show.value = route.name
+})
 </script>
 
 <template>
-    <div id="login">
+    <div v-show="(show == 'login')" id="login">
         <div class="icons">
             <div class="logo">
                 <img class="img" src="/img/logos/yesplaymusic.png" />
@@ -37,12 +41,13 @@ const { lang } = storeToRefs(langStore)
                 <i class="iconfont icon-arrowright"></i>
             </div>
         </div>
-        <router-view></router-view>
     </div>
+    <router-view></router-view>
 </template>
 
 <style lang="less" scoped>
 #login {
+    height: 83vh;
     position: relative;
     display: flex;
     align-items: center;

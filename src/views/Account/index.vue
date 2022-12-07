@@ -1,25 +1,32 @@
 <script setup>
 import QRProductor from '@/EncapComponents/QRProductor/index.vue'
 import { storeToRefs } from 'pinia'
-import { useLangStore } from '@/stores/lang/index.js'
+import { useRoute } from 'vue-router'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
+import { useLangStore } from '@/stores/settings/index.js'
 import QR from '@/components/LoginQR/index.vue'
 import Email from '@/components/LoginEmail/index.vue'
 import Phone from '@/components/LoginPhone/index.vue'
 
+const $route = useRoute()
 const langStore = useLangStore()
 const { lang } = storeToRefs(langStore)
 let login_way = ref('qr')
+let show = ref($route.name)
 
 function switchLoginWay(way) {
     login_way.value = way
 }
 
+watch($route, route => {
+    show.value = route.name
+})
+
 </script>
 
 <template>
-    <div id="account">
+    <div id="account" v-show="(show == 'account')">
         <div class="content">
             <div class="logo">
                 <img class="img" src="/img/logos/netease-music.png" />
@@ -44,11 +51,8 @@ function switchLoginWay(way) {
 
 <style scoped lang="less">
 #account {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height: 83vh;
     z-index: 99;
     padding: 64px 10vw;
     background-color: var(--bg_theme_color);

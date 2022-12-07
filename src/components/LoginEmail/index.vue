@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import md5 from 'js-md5'
 
-import LoginWithEmail from '@/api/login_with_email'
+import { LoginWithEmail } from '@/api/login'
 
 let email = ref('')
 let password = ref('')
@@ -10,22 +10,22 @@ let isEError = ref(false)
 let isPError = ref(false)
 
 async function login() {
-    if(!email.value) {
+    if (!email.value) {
         isEError.value = true
-        return 
+        return
     } else {
         const reg = /^[\w]*@163\.com$/
         const isLegal = reg.test(email.value)
-        if(!isLegal) {
+        if (!isLegal) {
             isEError.value = true
-            return 
+            return
         }
     }
-    if(!password.value) {
+    if (!password.value) {
         isPError.value = true
-        return 
+        return
     } else {
-        if(password.value.length < 6) {
+        if (password.value.length < 6) {
             isPError.value = true
             return
         }
@@ -37,10 +37,10 @@ async function login() {
             md5_password: password.value
         }
     })
-    if(code == 503) {
+    if (code == 503) {
         isEError.value = true
         isPError.value = true
-        return 
+        return
     }
     email.value = ' '
     password.value = ' '

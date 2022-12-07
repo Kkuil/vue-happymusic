@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export default async function LoginWithEmail(config) {
+export default async function GetTopList(config) {
     const { data } = await request({
         ...config,
-        method: 'POST',
-        url: '/login'
+        method: 'GET',
+        url: '/toplist'
     })
     return data
 }

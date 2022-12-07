@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export default async function LoginWithPhone(config) {
+export const UserDetails =  async config => {
     const { data } = await request({
         ...config,
-        method: 'POST',
-        url: '/login/cellphone'
+        method: 'GET',
+        url: '/user/detail'
     })
     return data
 }

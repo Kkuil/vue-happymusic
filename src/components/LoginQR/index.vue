@@ -1,11 +1,9 @@
 <script setup>
 import QRProductor from '@/EncapComponents/QRProductor/index.vue'
 import { storeToRefs } from 'pinia'
-import { useLangStore } from '@/stores/lang/index.js'
+import { useLangStore } from '@/stores/settings/index.js'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
-import GetQR_BASE64 from '@/api/qr_base64.js'
-import QRRecursive from '@/api/qr_recursive.js'
-import LoginRefresh from '@/api/login_refresh.js'
+import { QRBase64, QRRecursive } from '@/api/login'
 
 const langStore = useLangStore()
 const { lang } = storeToRefs(langStore)
@@ -14,7 +12,7 @@ let qrUrl = ref('')
 let qrCodeKey = ref('')
 
 async function GetQR() {
-    const { data: { qrurl }, key } = await GetQR_BASE64()
+    const { data: { qrurl }, key } = await QRBase64()
     qrCodeKey.value = key
     return qrurl
 }

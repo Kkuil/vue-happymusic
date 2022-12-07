@@ -3,6 +3,12 @@
     margin: 0;
     box-sizing: border-box;
     transition: all .3s ease;
+    scroll-behavior: smooth;
+    scrollbar-width: none;  /* firefox */
+    font-family: var(--common_font_family) !important;
+}
+*::-webkit-scrollbar {
+    display: none;
 }
 
 body {
@@ -34,6 +40,11 @@ input {
     &:focus {
         color: var(--common_text_color);
     }
+}
+
+button {
+    border: 0;
+    background-color: transparent;
 }
 
 select {

@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useLangStore } from '@/stores/lang/index.js'
+import { useLangStore } from '@/stores/settings/index.js'
 
 const langStore = useLangStore()
 const { lang } = storeToRefs(langStore)

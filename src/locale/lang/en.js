@@ -19,6 +19,7 @@ export default {
     newAlbum: 'Latest Albums',
     seeMore: 'SEE MORE',
     charts: 'Charts',
+    apple: 'By Apple Music'
   },
   library: {
     sLibrary: "'s Library",
@@ -85,6 +86,8 @@ export default {
     email: 'Email address',
     password: 'Password',
     login: 'Login',
+    logout: 'Logout',
+    profile: 'Profile',
     qr_tips: 'Please scan the code to log in with NetEase Cloud Music APP',
     loginWithEmail: 'Login with Email',
     loginWithPhone: 'Login with Phone',
