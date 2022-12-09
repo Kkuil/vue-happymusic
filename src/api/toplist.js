@@ -1,10 +1,11 @@
 import request from '@/utils/request'
 
-export default async function GetLatestAlbums(config) {
+/* 榜单列表 */
+export const TopList = async config => {
     const { data } = await request({
-        ...config,
         method: 'GET',
-        url: '/album/newest'
+        url: '/toplist',
+        ...config
     })
     return data
 }

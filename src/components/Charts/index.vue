@@ -3,7 +3,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useLangStore } from '@/stores/settings'
 
-import TopList from '@/api/top_list.js'
+import { TopList } from '@/api/toplist'
 
 import CoverRow from '@/EncapComponents/CoverRow/index.vue'
 
@@ -23,16 +23,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <CoverRow 
-        :title="lang.home.charts" 
-        :list="top_list" 
-        imgProp="coverImgUrl" 
-        navigatePage="apple" 
-        :seeMoreInfo="{ isShowSeeMore: true, navigatePage: '123' }" 
-        :isRadius="false" 
-        :isShowPlayButton="true"
-        :isTextCenter="true"
-    />
+    <CoverRow :title="lang.home.charts" :list="top_list" imgProp="coverImgUrl" navigatePage="apple"
+        :seeMoreInfo="{ isShowSeeMore: true, navigatePage: 'explore' }" :isRadius="false" :isShowPlayButton="true"
+        :isTextCenter="true" />
 </template>
 
 

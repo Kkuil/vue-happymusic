@@ -37,25 +37,6 @@ const { isShowAppleList } = storeToRefs(appleListStore)
         display: flex;
         flex-direction: column;
         padding: 20px 0;
-        >div {
-            margin-top: 15px;
-            width: 100%;
-            height: auto;
-
-            .title {
-                color: var(--common_text_color);
-            }
-
-            .content {
-                margin: 0 !important;
-                width: 100%;
-                height: auto;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-        }
     }
 }
 </style>

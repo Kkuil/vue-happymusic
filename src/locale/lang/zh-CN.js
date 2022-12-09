@@ -2,6 +2,7 @@ export default {
   common: {
     play: '播放',
     songs: '首歌',
+    minutes: '分钟'
   },
   nav: {
     home: '首页',
@@ -58,6 +59,7 @@ export default {
     follow: '关注',
     similarArtists: '相似艺人',
     artistDesc: '艺术家介绍',
+    fansCnt: '万粉丝'
   },
   album: {
     released: '发行于',

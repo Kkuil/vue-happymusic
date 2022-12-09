@@ -5,6 +5,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: '/home',
+      name: 'home',
+      component: () => import('@/views/Home/index.vue')
+    },
+    {
+      path: '/home',
       name: 'home',
       component: () => import('@/views/Home/index.vue')
     },
@@ -44,6 +50,24 @@ const router = createRouter({
       path: '/playlist',
       name: 'playlist',
       component: () => import('@/views/Playlist/index.vue'),
+    },
+    { 
+      path: '/artist',
+      name: 'artist',
+      component: () => import('@/views/Artist/index.vue')
+    },
+    { 
+      path: '/album',
+      name: 'album',
+      component: () => import('@/views/Album/index.vue')
+    },
+    {
+      path: '/newAlbum',
+      name: 'newAlbum',
+      component: () => import('@/views/NewAlbum/index.vue')
+    },
+    {
+      redirect: '/home'
     }
   ]
 })

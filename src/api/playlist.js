@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 
-export default async function GetPlaylistDetails(config) {
+/* 歌单详情 */
+export const PlayListDetails = async config => {
     const { data } = await request({
         method: 'GET',
         url: '/playlist/detail',

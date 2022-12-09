@@ -2,6 +2,7 @@ export default {
   common: {
     play: 'PLAY',
     songs: 'Songs',
+    minutes: 'minutes'
   },
   nav: {
     home: 'Home',
@@ -61,6 +62,7 @@ export default {
     follow: 'Follow',
     similarArtists: 'Similar Artists',
     artistDesc: 'Artist Description',
+    fansCnt: 'Million fans'
   },
   album: {
     released: 'Released',

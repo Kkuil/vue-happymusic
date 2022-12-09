@@ -3,7 +3,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useLangStore } from '@/stores/settings'
 
-import LatestAlbums from '@/api/latest_albums.js'
+import { LatestAlbums } from '@/api/album'
 
 import CoverRow from '@/EncapComponents/CoverRow/index.vue'
 
@@ -24,16 +24,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <CoverRow 
-        :title="lang.home.newAlbum" 
-        :list="latest_albums" 
-        imgProp="picUrl" 
-        subName="artist,name"
-        navigatePage="apple" 
-        :seeMoreInfo="{ isShowSeeMore: true, navigatePage: '123' }" 
-        :isRadius="false" 
-        :isShowPlayButton="true"
-    />
+    <CoverRow :title="lang.home.newAlbum" :list="latest_albums" imgProp="picUrl" :subName="['artist','name']"
+        navigatePage="album" :seeMoreInfo="{ isShowSeeMore: true, navigatePage: 'newAlbum' }" :isRadius="false"
+        :isShowPlayButton="true" />
 </template>
 
 

@@ -1,7 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useLangStore } from '@/stores/settings'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
 
@@ -9,6 +9,10 @@ const $router = useRouter()
 const $route = useRoute()
 const langStore = useLangStore()
 const { lang } = storeToRefs(langStore)
+const menu_pos = reactive({
+    left: 0,
+    top: 0
+})
 let cur_route = ref('home')
 const isCollapse = ref(false)
 let isShowMenu = ref(false)
@@ -24,6 +28,7 @@ function switchRoute(name) {
 
 function showMenu(e) {
     isShowMenu.value = true
+    Object.assign(menu_pos, { left: e.target.offsetLeft, top: e.target.offsetTop })
 }
 
 onMounted(() => {
@@ -70,34 +75,36 @@ watch($route, route => {
                 <div class="avatar">
                     <img @click.stop="showMenu"
                         :src="`${avatarUrl ? avatarUrl : 'http://s4.music.126.net/style/web2/img/default/default_avatar.jpg?param=60y60'}`" />
-                    <transition name="menu" enter-active-class="animate__animated animate__fadeIn"
-                        leave-active-class="animate__animated animate__fadeOut" duration="100">
-                        <div v-show="isShowMenu" class="menu">
-                            <div v-show="isLogin" class="profile" @click="$router.push({ name: 'profile' })">
-                                <i class="iconfont icon-user-fill"></i>
-                                <span>{{ lang.login.profile }}</span>
-                            </div>
-                            <div class="setting" @click="$router.push({ name: 'setting' })">
-                                <i class="iconfont icon-setting-fill"></i>
-                                <span>{{ lang.library.userProfileMenu.settings }}</span>
-                            </div>
-                            <div v-if="!isLogin" class="login" @click="$router.push({ name: 'login' })">
-                                <i class="iconfont icon-log-in"></i>
-                                <span>{{ lang.login.login }}</span>
-                            </div>
-                            <div v-else class="logout" @click="logout">
-                                <i class="iconfont icon-logout"></i>
-                                <span>{{ lang.login.logout }}</span>
-                            </div>
-                            <div class="github">
-                                <i class="iconfont icon-github"></i>
-                                <span>{{ lang.nav.github }}</span>
-                            </div>
-                        </div>
-                    </transition>
                 </div>
             </div>
-            <div v-show="isCollapse" class="collapse">456</div>
+            <div v-show="isCollapse" class="collapse" @click.stop="showMenu">
+                <i class="iconfont icon-text-lines"></i>
+            </div>
+            <transition name="menu" enter-active-class="animate__animated animate__fadeIn"
+                leave-active-class="animate__animated animate__fadeOut" duration="100">
+                <div v-show="isShowMenu" class="menu" :style="`left: ${menu_pos.left}px; top: ${menu_pos.top}px;`">
+                    <div v-show="isLogin" class="profile" @click="$router.push({ name: 'profile' })">
+                        <i class="iconfont icon-user-fill"></i>
+                        <span>{{ lang.login.profile }}</span>
+                    </div>
+                    <div class="setting" @click="$router.push({ name: 'setting' })">
+                        <i class="iconfont icon-setting-fill"></i>
+                        <span>{{ lang.library.userProfileMenu.settings }}</span>
+                    </div>
+                    <div v-if="!isLogin" class="login" @click="$router.push({ name: 'login' })">
+                        <i class="iconfont icon-log-in"></i>
+                        <span>{{ lang.login.login }}</span>
+                    </div>
+                    <div v-else class="logout" @click="logout">
+                        <i class="iconfont icon-logout"></i>
+                        <span>{{ lang.login.logout }}</span>
+                    </div>
+                    <div class="github">
+                        <i class="iconfont icon-github"></i>
+                        <span>{{ lang.nav.github }}</span>
+                    </div>
+                </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -170,6 +177,7 @@ watch($route, route => {
     }
 
     .search_center {
+        position: relative;
         justify-content: flex-end;
 
         .no_collapse {
@@ -210,7 +218,6 @@ watch($route, route => {
             }
 
             .avatar {
-                position: relative;
                 width: 50px;
                 border-radius: 50%;
                 display: flex;
@@ -225,46 +232,52 @@ watch($route, route => {
 
                 }
 
-                .menu {
-                    position: absolute;
-                    top: 100%;
-                    right: -90px;
-                    width: 130px;
-                    height: auto;
-                    border-radius: 15px;
-                    border: 1px solid #eee;
-                    background-color: var(--bg_theme_color);
-                    padding: 6px;
-                    overflow: hidden;
-                    box-shadow: 0 12px 10px rgba(0, 0, 0, 0.3);
 
-                    >div {
-                        width: 100%;
-                        height: 45px;
-                        border-radius: 10px;
-                        display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
+            }
+        }
 
-                        .iconfont {
-                            width: 20px;
-                            font-size: 18px;
-                            margin: 0 4px;
-                        }
+        .collapse {
+            .iconfont {
+                font-size: var(--nor_fz);
+            }
+        }
 
-                        span {
-                            font-size: 13px;
-                            font-weight: bolder;
-                            font-family: var(--common_font_family);
-                        }
+        .menu {
+            position: absolute;
+            width: 130px;
+            height: auto;
+            transform: translate(1vw, 1vw);
+            border-radius: 15px;
+            border: 1px solid #eee;
+            background-color: var(--bg_theme_color);
+            padding: 6px;
+            overflow: hidden;
+            box-shadow: 0 12px 10px rgba(0, 0, 0, 0.3);
 
-                        &:hover {
-                            color: var(--font_theme_color);
-                            background-color: var(--secondary_hover_bg_color);
-                        }
-                    }
+            >div {
+                width: 100%;
+                height: 45px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                .iconfont {
+                    width: 20px;
+                    font-size: 18px;
+                    margin: 0 4px;
                 }
 
+                span {
+                    font-size: 13px;
+                    font-weight: bolder;
+                    font-family: var(--common_font_family);
+                }
+
+                &:hover {
+                    color: var(--font_theme_color);
+                    background-color: var(--secondary_hover_bg_color);
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 <script>
+import { ref } from 'vue'
 import { useLangStore } from '@/stores/settings'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
@@ -9,7 +10,8 @@ export default {
         const langStore = useLangStore()
         const { lang } = storeToRefs(langStore)
         const $router = useRouter()
-        function naviPlaylist(id) {
+        let isUpdate = ref(false)
+        function navigation(id) {
             $router.push({
                 path: `/${this.navigatePage}`,
                 query: {
@@ -29,8 +31,19 @@ export default {
             isRadius,
             isShowPlayButton,
             isTextCenter,
-            naviPlaylist
+            isUpdate,
+            navigation
         }
+    },
+    methods: {
+        seeMore() {
+            this.$router.push({
+                name: this.seeMoreInfo.navigatePage
+            })
+        }
+    },
+    updated() {
+        this.isUpdate = true
     }
 }
 </script>
@@ -39,10 +52,10 @@ export default {
     <div class="cover_row">
         <div class="top">
             <span class="title">{{ title }}</span>
-            <span v-show="seeMoreInfo.isShowSeeMore" class="see_more">{{ lang.home.seeMore }}</span>
+            <span v-show="seeMoreInfo.isShowSeeMore" class="see_more" @click="seeMore">{{ lang.home.seeMore }}</span>
         </div>
         <div class="content">
-            <div v-for="item in list" :key="item.id" class="cover_item" @click="naviPlaylist(item.id)">
+            <div v-for="item in list" :key="item.id" class="cover_item" @click="navigation(item.id)">
                 <div class="cover" :style="`${isRadius ? 'border-radius: 50%;' : ''}`">
                     <img class="img" :src="item[imgProp]" />
                     <div class="play" v-show="isShowPlayButton">
@@ -51,7 +64,8 @@ export default {
                 </div>
                 <div class="text" :style="`${isTextCenter ? 'align-items: center;' : ''}`">
                     <span class="main_text">{{ item.name }}</span>
-                    <span class="sub_text">{{ uniqueSubName ? uniqueSubName : item[subName] }}</span>
+                    <span v-if="uniqueSubName" class="sub_text">{{ uniqueSubName }}</span>
+                    <span v-else class="sub_text">{{ isUpdate ? item[subName[0]][subName[1]] : '' }}</span>
                 </div>
             </div>
         </div>
@@ -60,10 +74,8 @@ export default {
 
 <style scoped lang="less">
 .cover_row {
-    cursor: pointer;
     width: 100%;
-    height: auto;
-
+    margin-top: 20px;
     >div {
         width: 100%;
     }
@@ -77,11 +89,14 @@ export default {
         .title {
             font-weight: bolder;
             font-size: 2.3vw;
+            color: var(--common_text_color);
         }
 
         .see_more {
             font-size: 1vw;
             cursor: pointer;
+            color: #ccc;
+            opacity: 0.5;
 
             &:hover {
                 text-decoration: underline;
@@ -90,13 +105,19 @@ export default {
     }
 
     .content {
+        margin: 0 !important;
+        width: 100%;
+        height: auto;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
 
         .cover_item {
             width: 18%;
             height: 19vw;
             margin-top: 1.5vw;
+            margin-left: 1.4vw;
 
             .cover {
                 position: relative;
@@ -158,13 +179,19 @@ export default {
                 display: flex;
                 flex-direction: column;
 
+                .main_text,
+                .sub_text {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
                 .main_text {
                     font-size: 1.2vw;
                     color: var(--common_text_color);
                     overflow: hidden;
+                    white-space: nowrap;
                     text-overflow: ellipsis;
-                    -webkit-line-clamp: 1;
-                    white-space: break-spaces;
 
                     &:hover {
                         text-decoration: underline;

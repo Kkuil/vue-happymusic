@@ -1,7 +1,7 @@
 body {
   --nor_fz: 18px;
   --bg_theme_color: #fff;
-  --nav_player_bd-f: saturate(180%) blur(20px);
+  --nav_player_bd-f: saturate(300%) blur(30px);
   --font_theme_color: #0094ff;
   --symbol_color: #303030;
   --common_text_color: #000;

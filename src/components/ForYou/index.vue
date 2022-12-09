@@ -23,6 +23,7 @@ import { defaultCovers } from '@/utils/staticData.js'
 .for_you {
     .title {
         font-size: 2.3vw;
+        color: var(--common_text_color);
     }
     .content {
         display: flex;

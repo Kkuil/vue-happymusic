@@ -2,6 +2,7 @@ export default {
   common: {
     play: 'OYNAT',
     songs: 'Müzikler',
+    minutes: 'Dakikalar'
   },
   nav: {
     home: 'Anasayfa',
@@ -58,6 +59,7 @@ export default {
     videos: 'Müzik Videoları',
     following: 'Takip Ediyor',
     follow: 'Takip Et',
+    fansCnt: 'Milyon hayran'
   },
   album: {
     released: 'Yayınlandı',

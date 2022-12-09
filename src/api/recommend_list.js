@@ -1,10 +1,14 @@
 import request from '@/utils/request'
 
-export default async function GetRecommendList(config) {
+/* 推荐歌单列表 */
+export const RecommendList = async config => {
     const { data } = await request({
-        ...config,
         method: 'GET',
-        url: 'personalized?limit=10&realIP=211.161.244.70'
+        url: 'personalized',
+        params: {
+            limit: 10,
+            ...config
+        }
     })
     return data
 }

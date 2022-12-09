@@ -2,6 +2,7 @@ export default {
   common: {
     play: '播放',
     songs: '首歌',
+    minutes: '分鐘'
   },
   nav: {
     home: '首頁',
@@ -55,6 +56,7 @@ export default {
     videos: '個 MV',
     following: '正在追蹤',
     follow: '追蹤',
+    fansCnt: '萬粉絲'
   },
   album: {
     released: '發行於',

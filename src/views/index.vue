@@ -54,7 +54,7 @@ watch($route, route => {
 
     .content {
         width: 100%;
-        overflow-x: hidden;
+        height: auto;
         padding: 64px 10vw !important;
         display: flex;
         justify-content: center;

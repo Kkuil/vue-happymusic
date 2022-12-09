@@ -10,7 +10,12 @@ const props = defineProps(['title'])
 <template>
     <CoverRow :title="title" :list="byAppleMusic" imgProp="coverImgUrl" uniqueSubName="By Apple Music"
         navigatePage="apple" :seeMoreInfo="{ isShowSeeMore: false, navigatePage: '123' }" :isRadius="false"
-        :isShowPlayButton="true" />
+        :isShowPlayButton="true" >
+        <template #desc>
+            <span class="main_text">{{ item.name }}</span>
+            <span class="sub_text">{{ uniqueSubName ? uniqueSubName : item[subName] }}</span>
+        </template>
+    </CoverRow>
 </template>
 
 <style scoped lang="less">
