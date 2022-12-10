@@ -20,38 +20,40 @@ onMounted(async () => {
 </script>
 
 <template>
-    <CoverRow :title="title" :list="artists" imgProp="img1v1Url" navigatePage="artist"
-        :seeMoreInfo="{ isShowSeeMore: true, navigatePage: '123' }" :isRadius="true" :isShowPlayButton="false"
-        :isTextCenter="true" />
+    <CoverRow :title="title" :list="artists" imgProp="img1v1Url" navigatePage="artist" uniqueSubName=" "
+        :seeMoreInfo="{ isShowSeeMore: true, navigatePage: 'recommendArtists' }" :isRadius="true"
+        :isShowPlayButton="false">
+        <template #name="{ item }">
+            <div class="text">
+                <span class="main_name">{{ item.name }}</span>
+            </div>
+        </template>
+    </CoverRow>
 </template>
 
 <style lang="less" scoped>
-.recommend_artist {
+.text {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    .main_name {
+        cursor: pointer;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 
-    .content {
-        width: 100%;
-        height: auto;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
+    .main_name {
+        font-size: 1.2vw;
+        color: var(--common_text_color);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
-        .artist {
-            width: 19%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .img {
-                width: 12vw;
-                border-radius: 50%;
-            }
-
-            .name {
-                font-size: 1.5vw;
-                color: var(--common_text_color);
-            }
+        &:hover {
+            text-decoration: underline;
         }
     }
+
 }
 </style>

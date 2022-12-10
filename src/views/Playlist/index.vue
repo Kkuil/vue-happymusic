@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onActivated, reactive } from 'vue'
 import { useRoute } from 'vue-router';
 import PlayListDetails from '@/api/playlist_details'
 
@@ -12,7 +12,7 @@ async function GetPlayListDetails() {
     })
 }
 
-onMounted(async () => {
+onActivated(async () => {
     const data = await GetPlayListDetails()
     console.log(data)
     Object.assign(playlist_details, data)

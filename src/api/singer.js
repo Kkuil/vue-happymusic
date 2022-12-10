@@ -31,9 +31,9 @@ export const RecommendSingers = async config => {
         url: '/top/artists',
         params: {
             offset: 0,
-            limit: 5
+            limit: 5,
+            ...config
         },
-        ...config,
     })
     return data
 }

@@ -48,7 +48,7 @@ onMounted(async () => {
 
 <template>
     <div class="hot_songs">
-        <h2 class="title">{{ lang.artist.popularSongs }}</h2>
+        <h2 class="title" v-show="show_songs.length">{{ lang.artist.popularSongs }}</h2>
         <div class="content">
             <div v-for="song in show_songs" :key="song.id" class="song">
                 <div class="cover" :style="`background-image: url(${song.al.picUrl});`">

@@ -2,7 +2,7 @@
 import QRProductor from '@/EncapComponents/QRProductor/index.vue'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 import { useLangStore } from '@/stores/settings/index.js'
 import QR from '@/components/LoginQR/index.vue'

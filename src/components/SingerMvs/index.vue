@@ -23,7 +23,7 @@ onMounted(async () => {
 
 <template>
     <div class="singer_mvs">
-        <h2 class="title">{{ lang.library.mvs }}</h2>
+        <h2 class="title" v-show="mvs.length">{{ lang.library.mvs }}</h2>
         <div class="content">
             <div v-for="mv in mvs" :key="mv.id" class="mv">
                 <div class="cover" :style="`background-image: url(${mv.imgurl});`">

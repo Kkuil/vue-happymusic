@@ -24,8 +24,6 @@ export default {
             title,
             list,
             imgProp,
-            uniqueSubName,
-            subName,
             navigatePage,
             seeMoreInfo,
             isRadius,
@@ -38,7 +36,8 @@ export default {
     methods: {
         seeMore() {
             this.$router.push({
-                name: this.seeMoreInfo.navigatePage
+                path: `/${this.seeMoreInfo.navigatePage}`,
+                query: this.seeMoreInfo.query
             })
         }
     },
@@ -63,9 +62,7 @@ export default {
                     </div>
                 </div>
                 <div class="text" :style="`${isTextCenter ? 'align-items: center;' : ''}`">
-                    <span class="main_text">{{ item.name }}</span>
-                    <span v-if="uniqueSubName" class="sub_text">{{ uniqueSubName }}</span>
-                    <span v-else class="sub_text">{{ isUpdate ? item[subName[0]][subName[1]] : '' }}</span>
+                    <slot name="name" :item="item"></slot>
                 </div>
             </div>
         </div>
@@ -76,6 +73,7 @@ export default {
 .cover_row {
     width: 100%;
     margin-top: 20px;
+
     >div {
         width: 100%;
     }
@@ -120,6 +118,7 @@ export default {
             margin-left: 1.4vw;
 
             .cover {
+                cursor: pointer;
                 position: relative;
                 width: 100%;
                 height: 80%;
@@ -127,7 +126,7 @@ export default {
                 overflow: hidden;
 
                 &:hover {
-                    filter: drop-shadow(5px 5px 20px);
+                    filter: drop-shadow(5px 5px 30px);
                 }
 
                 .img {
@@ -170,40 +169,6 @@ export default {
 
                     &:hover .iconfont {
                         display: flex;
-                    }
-                }
-            }
-
-            .text {
-                margin-top: 10px;
-                display: flex;
-                flex-direction: column;
-
-                .main_text,
-                .sub_text {
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
-
-                .main_text {
-                    font-size: 1.2vw;
-                    color: var(--common_text_color);
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-
-                .sub_text {
-                    font-size: 0.7vw;
-                    color: rgb(116, 116, 116);
-
-                    &:hover {
-                        text-decoration: underline;
                     }
                 }
             }

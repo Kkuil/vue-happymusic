@@ -40,7 +40,11 @@ watch($route, route => {
     <div id="container">
         <NavBar />
         <div class="content">
-            <router-view>
+            <router-view #default="{ Component }">
+                <keep-alive>
+                    <component :is="Component" :key="$route.name" v-if="$route.meta.keepAlive" />
+                </keep-alive>
+                <component :is="Component" :key="$route.name" v-if="!$route.meta.keepAlive" />
             </router-view>
         </div>
         <Player />
