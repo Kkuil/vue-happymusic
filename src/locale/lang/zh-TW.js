@@ -117,6 +117,7 @@ export default {
     pause: '暫停',
     mute: '靜音',
     nextUp: '播放清單',
+    totalPlayNum: '總播放量'
   },
   modal: {
     close: '關閉',

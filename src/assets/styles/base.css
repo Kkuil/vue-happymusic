@@ -12,7 +12,6 @@
   display: none;
 }
 body {
-  overflow-x: hidden;
   background-color: var(--bg_theme_color);
 }
 ul {

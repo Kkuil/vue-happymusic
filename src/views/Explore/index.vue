@@ -82,6 +82,7 @@ async function naviCate(cate_name, offset, flag) {
     if (mapCate[cate_name]) {
         const { fn, list, cover } = mapCate[cate_name]
         const data = await fn()
+        console.log(data)
         !flag
         ? content.list.splice(0, content.list.length, ...data[list])
         : content.list.push(...data[list])
@@ -129,9 +130,12 @@ function loadMore() {
 
 watch($route, route => {
     const cate = $route.query.cate
-    if (!navigations.includes(cate)) {
+    const index = navigations.indexOf(cate)
+    if (index == -1) {
         navigations.push(cate)
         active_cate.value = navigations.length - 1
+    } else {
+        active_cate.value = index
     }
     naviCate(cate, content.offset, 0)
 }, {

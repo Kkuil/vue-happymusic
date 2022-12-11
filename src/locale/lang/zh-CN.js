@@ -121,6 +121,7 @@ export default {
     pause: '暂停',
     mute: '静音',
     nextUp: '播放列表',
+    totalPlayNum: '总播放量'
   },
   modal: {
     close: '关闭',

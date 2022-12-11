@@ -110,6 +110,14 @@ const router = createRouter({
       component: () => import('@/views/RecommendArtists/index.vue')
     },
     {
+      path: '/mv',
+      name: 'mv',
+      meta: {
+        keepAlive: true
+      },
+      component: () => import('@/views/Mv/index.vue')
+    },
+    {
       redirect: '/home'
     }
   ]

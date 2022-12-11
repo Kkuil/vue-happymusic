@@ -40,6 +40,7 @@ onMounted(async () => {
     const data = await GetSingerHotSongs(props.id)
     hot_songs.push(...data.songs)
     show_songs.push(...data.songs.slice(0, 12))
+    console.log(data)
     nextTick(() => {
         if(hot_songs.length == show_songs.length) isMore.value = false
     })
@@ -50,7 +51,7 @@ onMounted(async () => {
     <div class="hot_songs">
         <h2 class="title" v-show="show_songs.length">{{ lang.artist.popularSongs }}</h2>
         <div class="content">
-            <div v-for="song in show_songs" :key="song.id" class="song">
+            <div v-for="song in show_songs" :key="song.id" class="song" @click="$router.push({ path: '/album', query: { id: song.al.id } })">
                 <div class="cover" :style="`background-image: url(${song.al.picUrl});`">
                     <PlayButton />
                 </div>

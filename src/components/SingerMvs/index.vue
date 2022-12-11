@@ -25,7 +25,7 @@ onMounted(async () => {
     <div class="singer_mvs">
         <h2 class="title" v-show="mvs.length">{{ lang.library.mvs }}</h2>
         <div class="content">
-            <div v-for="mv in mvs" :key="mv.id" class="mv">
+            <div v-for="mv in mvs" :key="mv.id" class="mv" @click="$router.push({ path: '/mv', query: { id: mv.id } })">
                 <div class="cover" :style="`background-image: url(${mv.imgurl});`">
                     <PlayButton />
                 </div>
@@ -63,7 +63,7 @@ onMounted(async () => {
             height: 200px;
             color: var(--common_text_color);
             margin-bottom: 20px;
-            margin-left: 15px;
+            margin-right: 15px;
             .cover {
                 position: relative;
                 width: 100%;

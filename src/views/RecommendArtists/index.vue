@@ -9,15 +9,15 @@ const { lang } = storeToRefs(langStore);
 
 const artists = reactive([])
 let isNoMore = ref(false)
-let limit = ref(30)
+let offset = ref(0)
 
 async function loadMore() {
     const old_artist_length = artists.length
-    const data = await GetRecommendSingers(limit.value, 30)
-    artists.splice(limit.value + 30, 0, ...data.artists)
+    const data = await GetRecommendSingers(offset.value, 30)
+    artists.splice(offset.value + 30, 0, ...data.artists)
     nextTick(() => {
-        if(old_artist_length == artists.length) isNoMore.value = true
-        else limit.value += 30
+        if (old_artist_length == artists.length) isNoMore.value = true
+        else offset.value += 30
     })
 }
 
@@ -26,7 +26,8 @@ async function GetRecommendSingers(offset, limit) {
 }
 
 onActivated(async () => {
-    const data = await GetRecommendSingers(0, limit.value)
+    const data = await GetRecommendSingers(offset.value, 30)
+    offset.value += 30
     artists.push(...data.artists)
 })
 
@@ -36,7 +37,13 @@ onActivated(async () => {
     <div id="recommend_artists">
         <CoverRow :title="lang.home.recommendArtist" :list="artists" imgProp="img1v1Url" navigatePage="artist"
             uniqueSubName=" " :isRadius="true" :isShowPlayButton="false" :seeMoreInfo="{ isShowSeeMore: false }"
-            :isTextCenter="true" />
+            :isTextCenter="true">
+            <template #name="{ item }">
+                <div class="name">
+                    <span class="main_name">{{ item.name }}</span>
+                </div>
+            </template>
+        </CoverRow>
         <div class="load_more">
             <div v-show="!isNoMore" class="text" @click="loadMore">加载更多</div>
             <div v-show="isNoMore" class="text">没有更多了</div>
@@ -47,6 +54,24 @@ onActivated(async () => {
 <style lang="less" scoped>
 #recommend_artists {
     width: 100%;
+    color: var(--common_text_color);
+    .name {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .main_name {
+            font-size: 1.2vw;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+    }
 
     .load_more {
         cursor: pointer;

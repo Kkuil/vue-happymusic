@@ -6,13 +6,14 @@ const $route = useRoute()
 let isShowPlayer = ref(true)
 
 watch($route, route => {
-    if(route.name == 'login' || route.name == 'account') {
+    if(route.name == 'login' || route.name == 'account' || route.name == 'mv') {
         isShowPlayer.value = false
     } else {
         isShowPlayer.value = true
     }
-    console.log(route.name)
 }, {
+    immediate: true,
+    deep: true
 })
 </script>
 

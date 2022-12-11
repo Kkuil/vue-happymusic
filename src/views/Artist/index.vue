@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount, reactive } from 'vue';
+import { ref, onBeforeMount, reactive, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router'
 
@@ -18,6 +18,13 @@ const { lang } = storeToRefs(langStore)
 const $route = useRoute()
 const singer_details = reactive({})
 
+async function initial() {
+    const singer_id = $route.query.id
+    const { data } = await GetSingerDetails(singer_id)
+    const { data: { fansCnt } } = await GetSingerFansCount(singer_id)
+    Object.assign(singer_details, data, { fansCnt })
+}
+
 // 歌手详情
 async function GetSingerDetails(id) {
     return await SingerDetails({ id })
@@ -27,11 +34,14 @@ async function GetSingerFansCount(id) {
     return await SingerFansCount({ id })
 }
 
+watch($route, route => {
+    initial()
+}, {
+    deep: true
+})
+
 onBeforeMount(async () => {
-    const singer_id = $route.query.id
-    const { data } = await GetSingerDetails(singer_id)
-    const { data: { fansCnt } } = await GetSingerFansCount(singer_id)
-    Object.assign(singer_details, data, { fansCnt })
+    initial()
 })
 
 </script>

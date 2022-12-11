@@ -24,13 +24,17 @@ console.log(props.song_info)
 
 <template>
     <div class="song_list">
-        <div v-for="song, index in props.song_info.songs" :key="song.id" class="song" @mouseenter="(hover_index = index)" @mouseleave="(hover_index = -1)">
+        <div v-for="song, index in props.song_info.songs" :key="song.id" class="song"
+            @mouseenter="(hover_index = index)" @mouseleave="(hover_index = -1)">
             <div class="left">
                 <span class="index">
-                    <span v-show="(!(hover_index == index))" >{{ index + 1 }}</span>
+                    <span v-show="(!(hover_index == index))">{{ index + 1 }}</span>
                     <i v-show="(hover_index == index)" class="iconfont icon-playfill play"></i>
                 </span>
-                <h3>{{ song.name }}</h3>
+                <h3 class="name">{{ song.name }}</h3>
+                <div class="singer_name">
+                    <span v-for="artist in song.ar" @click="$router.push({ path: '/artist', query: { id: artist.id } })">{{ artist.name }}</span>
+                </div>
             </div>
             <div class="right">
                 <i v-show="(hover_index == index)" class="like iconfont icon-heart"></i>
@@ -86,6 +90,36 @@ console.log(props.song_info)
                     transform: translate(-50%, -50%);
                     color: #335eea;
                     font-size: 30px;
+                    transform-origin: center;
+
+                    &:active {
+                        transform: translate(-50%, -50%) scale(0.9);
+                    }
+                }
+            }
+
+            .name {
+                width: 200px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .singer_name {
+                margin-left: 10px;
+                width: 300px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
+                span {
+                    cursor: pointer;
+                    margin-left: 5px;
+                    color: rgba(204, 204, 204, 0.183);
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
@@ -98,6 +132,7 @@ console.log(props.song_info)
 
             .like {
                 cursor: pointer;
+
                 &:hover {
                     transform: scale(1.05);
                 }
@@ -106,7 +141,8 @@ console.log(props.song_info)
                     transform: scale(0.9);
                 }
             }
-            > span {
+
+            >span {
                 width: 50px;
             }
         }
@@ -121,9 +157,11 @@ console.log(props.song_info)
         color: rgb(86, 86, 86);
         opacity: 0.8;
         font-size: 13px;
+
         .publish {
             font-size: 15px;
         }
+
         .company {
             margin-top: 3px;
             display: flex;

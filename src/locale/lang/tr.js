@@ -115,6 +115,7 @@ export default {
     pause: 'Durdur',
     mute: 'Sesi kapat',
     nextUp: 'Sıradaki',
+    totalPlayNum: 'Toplam video görüntüleme'
   },
   modal: {
     close: 'Kapat',

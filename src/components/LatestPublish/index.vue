@@ -25,7 +25,7 @@ onMounted(async () => {
     <div class="latest_publish">
         <h2 class="title">{{ lang.artist.latestRelease }}</h2>
         <div class="content">
-            <div class="mv">
+            <div class="mv" @click="$router.push({ path: '/mv', query: { id: latest_mv.id } })">
                 <div class="cover" :style="`background-image: url(${latest_mv.imgurl});`">
                     <PlayButton />
                 </div>

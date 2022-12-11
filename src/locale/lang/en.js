@@ -120,6 +120,7 @@ export default {
     pause: 'Pause',
     mute: 'Mute',
     nextUp: 'Next Up',
+    totalPlayNum: 'total play'
   },
   modal: {
     close: 'Close',
