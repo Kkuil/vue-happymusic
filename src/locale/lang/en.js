@@ -261,4 +261,17 @@ export default {
     copyFailed: 'Copy failed: ',
     needToLogin: 'Need to log into netease account',
   },
+  search: {
+    single: 'single',
+    album: 'album',
+    singer: 'singer',
+    playlist: 'playlist',
+    user: 'user',
+    mv: 'mv',
+    lyrics: 'lyrics',
+    radio: 'radio',
+    video: 'video',
+    comprehension: 'comprehension',
+    audio: 'audio',
+  }
 };

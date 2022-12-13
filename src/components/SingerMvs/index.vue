@@ -17,7 +17,6 @@ async function GetSingerMV(id) {
 onMounted(async () => {
     const data = await GetSingerMV(props.id)
     mvs.push(...data.mvs)
-    console.log(data)
 })
 </script>
 

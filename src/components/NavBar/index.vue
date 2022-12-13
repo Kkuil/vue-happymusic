@@ -5,6 +5,7 @@ import { ref, watch, onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
 
+
 const $router = useRouter()
 const $route = useRoute()
 const langStore = useLangStore()
@@ -18,6 +19,8 @@ const isCollapse = ref(false)
 let isShowMenu = ref(false)
 let isLogin = ref(false)
 const avatarUrl = ref('')
+let keywords = ref('')
+let isShowSearchType = ref(false)
 
 // 切换路由
 function switchRoute(name) {
@@ -26,9 +29,22 @@ function switchRoute(name) {
     })
 }
 
+// 展示菜单栏
 function showMenu(e) {
     isShowMenu.value = true
     Object.assign(menu_pos, { left: e.target.offsetLeft, top: e.target.offsetTop })
+}
+
+// 搜索
+async function Search(type) {
+    isShowSearchType.value = false
+    $router.push({
+        name: 'search',
+        query: {
+            keywords: keywords.value,
+            type
+        }
+    })
 }
 
 onMounted(() => {
@@ -43,9 +59,15 @@ onMounted(() => {
         avatarUrl.value = user_details.profile.avatarUrl
     })
 })
+
 watch($route, route => {
     const { name } = route
     cur_route.value = name
+})
+
+watch(keywords, keywords => {
+    if (keywords) isShowSearchType.value = true
+    else isShowSearchType.value = false
 })
 </script>
 
@@ -70,7 +92,21 @@ watch($route, route => {
             <div v-show="!isCollapse" class="no_collapse">
                 <div class="search">
                     <i class="iconfont icon-search"></i>
-                    <input class="searchInput" type="text" :placeholder="lang.nav.search">
+                    <input class="searchInput" type="text" :placeholder="lang.nav.search" v-model="keywords"
+                        @keyup.enter="Search(1)">
+                    <div class="search_type" v-show="isShowSearchType">
+                        <div class="single" @click="Search(1)">{{ lang.searchType.single }}</div>
+                        <div class="album" @click="Search(10)">{{ lang.searchType.album }}</div>
+                        <div class="singer" @click="Search(100)">{{ lang.searchType.singer }}</div>
+                        <div class="playlist" @click="Search(1000)">{{ lang.searchType.playlist }}</div>
+                        <div class="user" @click="Search(1002)">{{ lang.searchType.user }}</div>
+                        <div class="mv" @click="Search(1004)">{{ lang.searchType.mv }}</div>
+                        <div class="lyrics" @click="Search(1006)">{{ lang.searchType.lyrics }}</div>
+                        <div class="radio" @click="Search(1009)">{{ lang.searchType.radio }}</div>
+                        <div class="video" @click="Search(1014)">{{ lang.searchType.video }}</div>
+                        <div class="comprehension" @click="Search(1018)">{{ lang.searchType.comprehension }}</div>
+                        <div class="audio" @click="Search(2000)">{{ lang.searchType.audio }}</div>
+                    </div>
                 </div>
                 <div class="avatar">
                     <img @click.stop="showMenu"
@@ -186,6 +222,7 @@ watch($route, route => {
             display: flex;
 
             .search {
+                position: relative;
                 width: 200px;
                 height: 100%;
                 display: flex;
@@ -207,6 +244,31 @@ watch($route, route => {
                     input {
                         &:focus {
                             color: var(--common_text_color) !important;
+                        }
+                    }
+                }
+
+                .search_type {
+                    position: absolute;
+                    top: 40px;
+                    left: 0;
+                    width: 100%;
+                    background-color: var(--bg_theme_color);
+                    color: var(--common_text_color);
+                    border-radius: 15px;
+                    border: 1px solid var(--common_text_color);
+                    overflow: hidden;
+
+                    >div {
+                        width: 100%;
+                        height: 40px;
+                        padding: 0 15px;
+                        display: flex;
+                        align-items: center;
+
+                        &:hover {
+                            color: var(--font_theme_color);
+                            background-color: var(--secondary_hover_bg_color);
                         }
                     }
                 }

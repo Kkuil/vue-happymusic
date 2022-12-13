@@ -261,4 +261,17 @@ export default {
     copyFailed: '复制失败：',
     needToLogin: '此操作需要登录网易云帐号',
   },
+  searchType: {
+    single: '单曲',
+    album: '专辑',
+    singer: '歌手',
+    playlist: '歌单',
+    user: '用户',
+    mv: 'MV',
+    lyrics: '歌词',
+    radio: '电台',
+    video: '视频',
+    comprehension: '综合',
+    audio: '声音',
+  }
 };

@@ -20,6 +20,7 @@ async function GetSingerHotSongs(id) {
     return SingerHotSongs({ id })
 }
 
+
 watch(show_songs, songs => {
     if(songs.length == hot_songs.length) {
         show.value = 'less'
@@ -40,7 +41,6 @@ onMounted(async () => {
     const data = await GetSingerHotSongs(props.id)
     hot_songs.push(...data.songs)
     show_songs.push(...data.songs.slice(0, 12))
-    console.log(data)
     nextTick(() => {
         if(hot_songs.length == show_songs.length) isMore.value = false
     })

@@ -3,11 +3,17 @@ import { ref, onBeforeMount, reactive, computed, defineProps } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router'
 import { useLangStore } from '@/stores/settings'
+import { usePlayerStore } from '@/stores/player';
 import moment from 'moment';
+
+import { Lyrics } from '@/api/lyric'
+import { SongUrl } from '@/api/song'
 
 const props = defineProps(['song_info'])
 const langStore = useLangStore()
+const playStore = usePlayerStore()
 const { lang } = storeToRefs(langStore)
+const { play_state, playing_song } = storeToRefs(playStore)
 const $route = useRoute()
 let hover_index = ref(-1)
 
@@ -19,7 +25,41 @@ function formatDate(timestamp) {
     return moment(timestamp).format('YYYY年MM月DD日')
 }
 
-console.log(props.song_info)
+// 播放音乐
+async function playOrPause(song) {
+    // 判断是否是正在播放的音乐
+    if (playing_song.value.id == song.id) {
+        if(playing_song.value.url) playStore.play_or_pause(!this.play_state.isPlaying)
+        else playStore.play_or_pause(false)
+    } else {
+        playStore.play_or_pause(false)
+        const {
+            id,
+            al,
+            name,
+            ar,
+            dt,
+        } = song
+        // 获取歌词信息
+        const { lrc: { lyric } } = await Lyrics(id)
+        // 获取歌曲url
+        const { data: { url } } = await SongUrl(id)
+        // 更新播放信息
+        playStore.switch_music({
+            id,
+            url,
+            cover: al.picUrl,
+            song_name: name,
+            artist_name: ar[0].name,
+            song_length: dt,
+            lyrics: lyric.split('\n')
+        })
+        if (url) {
+            playStore.play_or_pause(true)
+        }
+    }
+}
+
 </script>
 
 <template>
@@ -29,11 +69,13 @@ console.log(props.song_info)
             <div class="left">
                 <span class="index">
                     <span v-show="(!(hover_index == index))">{{ index + 1 }}</span>
-                    <i v-show="(hover_index == index)" class="iconfont icon-playfill play"></i>
+                    <i v-show="(hover_index == index)" class="iconfont play" @click="playOrPause(song)"
+                        :class="`${(playing_song.id == song.id) && play_state.isPlaying ? 'icon-pause' : 'icon-playfill'}`"></i>
                 </span>
                 <h3 class="name">{{ song.name }}</h3>
                 <div class="singer_name">
-                    <span v-for="artist in song.ar" @click="$router.push({ path: '/artist', query: { id: artist.id } })">{{ artist.name }}</span>
+                    <span v-for="artist in song.ar"
+                        @click="$router.push({ path: '/artist', query: { id: artist.id } })">{{ artist.name }}</span>
                 </div>
             </div>
             <div class="right">
@@ -115,7 +157,7 @@ console.log(props.song_info)
                 span {
                     cursor: pointer;
                     margin-left: 5px;
-                    color: rgba(204, 204, 204, 0.183);
+                    color: rgb(82, 82, 82);
 
                     &:hover {
                         text-decoration: underline;

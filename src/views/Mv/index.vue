@@ -1,6 +1,6 @@
 <script setup>
 import VuePlyr from 'vue-plyr';
-import 'vue-plyr/dist/vue-plyr.css';
+import '@/assets/styles/vue-plyr.css';
 import { ref, onActivated, reactive, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -186,18 +186,18 @@ onActivated(async () => {
                 }
 
                 .mv_info {
-                    color: rgba(238, 238, 238, 0.377);
                     margin-top: 10px;
                     >span {
+                        color: rgb(95, 95, 95);
                         cursor: pointer;
-
                         &:hover {
                             text-decoration: underline;
                         }
                     }
-
+                    
                     .name {
                         margin-right: 5px;
+                        color: var(--common_text_color);
                     }
                 }
             }

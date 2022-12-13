@@ -249,4 +249,17 @@ export default {
     savedToMyLikedSongs: 'Beğendiğim Müziklere Kaydet',
     removedFromMyLikedSongs: 'Beğendiğim Müziklerden Kaldır',
   },
+  search: {
+    single: 'Tek',
+    album: 'Albüm',
+    singer: 'Şarkıcı',
+    playlist: 'Çalma Listesi',
+    user: 'Kullanıcı',
+    mv: 'MV',
+    lyrics: 'Şarkı Sözleri',
+    radio: 'Radyo',
+    video: 'Video',
+    comprehension: 'Kapsamlı',
+    audio: 'Ses',
+  }
 };

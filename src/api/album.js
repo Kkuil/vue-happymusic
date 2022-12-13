@@ -13,11 +13,10 @@ export const AlbumDetails = async config => {
 }
 
 /* 最新专辑 */
-export const LatestAlbums = async config => {
+export const LatestAlbums = async () => {
     const { data } = await request({
         method: 'GET',
         url: '/album/newest',
-        ...config,
     })
     return data
 }

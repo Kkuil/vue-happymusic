@@ -55,7 +55,6 @@ watch($route, route => {
 #container {
     width: 100%;
     background-color: var(--bg_theme_color);
-
     .content {
         width: 100%;
         height: auto;

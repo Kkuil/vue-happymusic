@@ -30,7 +30,7 @@ onMounted(async () => {
         <template #name="{ item }">
             <div class="text">
                 <span class="main_name">{{ item.name }}</span>
-                <span class="sub_name">{{ item.artist.name }}</span>
+                <span class="sub_name" @click.stop="$router.push({ path: '/artist', query: { id: item.artist.id } })">{{ item.artist.name }}</span>
             </div>
         </template>
     </CoverRow>
@@ -50,6 +50,7 @@ onMounted(async () => {
 
     .main_name,
     .sub_name {
+        cursor: pointer;
         font-size: 1.2vw;
         color: var(--common_text_color);
         overflow: hidden;

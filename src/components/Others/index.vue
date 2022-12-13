@@ -42,7 +42,7 @@ function isShowApple(isShowAppleList) {
                 <svg class="iconfont">
                     <use xlink:href="#icon-rainbow"/>
                 </svg>
-                <img src="../../../public/img/logos/nyancat-stop.png" alt="">
+                <img src="/img/logos/nyancat-stop.png" alt="">
             </div>
             <div class="switch">
                 <Switch/>

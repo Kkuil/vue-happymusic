@@ -258,4 +258,17 @@ export default {
     copyFailed: '複製失敗：',
     needToLogin: '此動作需要登入網易雲帳戶',
   },
+  search: {
+    single: '單曲',
+    album: '專輯',
+    singer: '歌手',
+    playlist: '歌單',
+    user: '用戶',
+    mv: 'MV',
+    lyrics: '歌詞',
+    radio: '電臺',
+    video: '視頻',
+    comprehension: '綜合',
+    audio: '聲音',
+  }
 };
